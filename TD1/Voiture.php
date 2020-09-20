@@ -27,8 +27,13 @@ class Voiture {
     $this->couleur = $couleur2;
   }
 
-  public function setCouleur($immatriculation2){
-    $this->immatriculation = $immatriculation2;
+  public function setImmatriculation($immatriculation2){
+    if (strlen($immatriculation2) <= 8) {
+      $this->immatriculation = $immatriculation2;
+    }else{
+      $this->immatriculation = "erreur trop long";
+    }
+    
   }
       
   // un constructeur
