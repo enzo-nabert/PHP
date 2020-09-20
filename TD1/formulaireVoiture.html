@@ -9,7 +9,7 @@
     <legend>Mon formulaire :</legend>
     <p>
       <label for="immat_id">Immatriculation</label> :
-      <input type="text" placeholder="Ex : 256AB34" name="immatriculation" id="immat_id" required/>
+      <input type="text" placeholder="Ex : 256AB34" name="immatriculation" id="immat_id" required pattern="\w{0,8}?" />
     </p>
     <p>
       <input type="submit" value="Envoyer" />
