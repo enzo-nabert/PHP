@@ -5,7 +5,7 @@
 </head>
 <body>
 	<?php 
-		echo "<p>Immatriculation: {$_GET['immatriculation']}, Marque: {$_GET['marque']}, Couleur: {$_GET['couleur']}</p>\n";
+		echo "<p>Immatriculation: {$_POST['immatriculation']}, Marque: {$_POST['marque']}, Couleur: {$_POST['couleur']}</p>\n";
 	?>
 </body>
 </html>
