@@ -1,6 +1,6 @@
 <?php
-require_once ("Conf.php");
-class Model{
+require_once("ConfCovoiturage.php");
+class ModelCovoiturage{
 
         public static $pdo;
 

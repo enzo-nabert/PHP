@@ -53,7 +53,7 @@ class Voiture {
   }
 
   public static function getAllVoitures(){
-      $pdo = Model::$pdo;
+      $pdo = ModelCovoiturage::$pdo;
       $rep = $pdo->query("SELECT * FROM voiture");
       $rep->setFetchMode(PDO::FETCH_CLASS,"Voiture");
       return $rep->fetchAll();
