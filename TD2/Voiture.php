@@ -37,10 +37,12 @@ class Voiture {
   }
       
   // un constructeur
-  public function __construct($m, $c, $i)  {
-   $this->marque = $m;
-   $this->couleur = $c;
-   $this->immatriculation = $i;
+  public function __construct($m = null, $c = null, $i = null)  {
+      if (!is_null($m) && !is_null($c) && !is_null($i)) {
+          $this->marque = $m;
+          $this->couleur = $c;
+          $this->immatriculation = $i;
+      }
   } 
            
   // une methode d'affichage.
