@@ -1,4 +1,6 @@
 <?php
+require_once ("Model.php");
+
 class Voiture {
    
   private $marque;
@@ -48,6 +50,13 @@ class Voiture {
   // une methode d'affichage.
   public function afficher() {
     echo "<p>Immatriculation: $this->immatriculation , Marque: $this->marque , Couleur: $this->couleur</p>\n";
+  }
+
+  public static function getAllVoitures(){
+      $pdo = Model::$pdo;
+      $rep = $pdo->query("SELECT * FROM voiture");
+      $rep->setFetchMode(PDO::FETCH_CLASS,"Voiture");
+      return $rep->fetchAll();
   }
 }
 ?>
