@@ -3,8 +3,9 @@ require_once ("Model.php");
 require_once ("Voiture.php");
 $pdo = Model::$pdo;
 $rep = $pdo->query("SELECT * FROM voiture");
-$tab_obj = $rep->fetchAll(PDO::FETCH_OBJ);
+$rep->setFetchMode(PDO::FETCH_CLASS,"Voiture");
+$tab_obj = $rep->fetchAll();
 foreach ($tab_obj as $key => $obj){
-    echo "$obj->immatriculation , $obj->marque , $obj->couleur<br>";
+    echo $obj->afficher();
 }
 
