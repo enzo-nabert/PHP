@@ -18,7 +18,11 @@ class Model{
                 // On active le mode d'affichage des erreurs, et le lancement d'exception en cas d'erreur
                 self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }catch (PDOException $e){
-                echo $e->getMessage();
+                if (Conf::getDebug()) {
+                    echo $e->getMessage();
+                }else{
+                    echo "erreur";
+                }
                 die();
             }
 
