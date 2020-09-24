@@ -6,6 +6,7 @@ class Voiture {
   private $marque;
   private $couleur;
   private $immatriculation;
+  private $debug = true;
       
   // getters      
   public function getMarque() {
@@ -80,11 +81,20 @@ class Voiture {
       return $tab_voit[0];
   }
 
-  public function save(){
-      $sql = "INSERT INTO voiture VALUES('$this->immatriculation','$this->marque','$this->couleur')";
-      $pdo = Model::$pdo;
-      $req = $pdo->prepare($sql);
-      $req->execute();
+  public function save()
+  {
+      try {
+          $sql = "INSERT INTO voiture VALUES('$this->immatriculation','$this->marque','$this->couleur')";
+          $pdo = Model::$pdo;
+          $req = $pdo->prepare($sql);
+          $req->execute();
+      }catch(PDOException $e){
+          if ($this->debug) {
+              echo $e->getMessage();
+          }else{
+              echo "erreur";
+          }
+      }
   }
 }
 ?>
