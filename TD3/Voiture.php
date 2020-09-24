@@ -39,7 +39,7 @@ class Voiture {
   }
       
   // un constructeur
-  public function __construct($m = null, $c = null, $i = null)  {
+  public function __construct($i = null, $m = null, $c = null)  {
       if (!is_null($m) && !is_null($c) && !is_null($i)) {
           $this->marque = $m;
           $this->couleur = $c;
@@ -78,6 +78,13 @@ class Voiture {
       if (empty($tab_voit))
           return false;
       return $tab_voit[0];
+  }
+
+  public function save(){
+      $sql = "INSERT INTO voiture VALUES('$this->immatriculation','$this->marque','$this->couleur')";
+      $pdo = Model::$pdo;
+      $req = $pdo->prepare($sql);
+      $req->execute();
   }
 }
 ?>

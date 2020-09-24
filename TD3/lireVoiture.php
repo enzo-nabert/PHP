@@ -1,5 +1,10 @@
 <?php
 require_once ("Model.php");
 require_once ("Voiture.php");
-echo Voiture::getVoitureByImmat("AB123CD")->afficher();
+$v1 = new Voiture("AA112AA","renault","verte");
+$v1->save();
+$tabVoit = Voiture::getAllVoitures();
+foreach ($tabVoit as $voit){
+    $voit->afficher();
+}
 
