@@ -37,5 +37,17 @@ require_once("ModelCovoiturage.php");
 		    $res->setFetchMode(PDO::FETCH_CLASS,"Utilisateur");
 		    return $res->fetchAll();
         }
+
+        public static function findTrajets($login){
+            $pdo = ModelCovoiturage::$pdo;
+            $res = $pdo->query("SELECT t.*
+                FROM trajet t
+                JOIN passager p ON p.id_trajet = t.id
+                WHERE utilisateur_login = '$login'"
+            );
+            $res->setFetchMode(PDO::FETCH_CLASS,"Trajet");
+            return $res->fetchAll();
+
+        }
 	} 
  ?>

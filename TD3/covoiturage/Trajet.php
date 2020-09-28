@@ -39,13 +39,38 @@ require_once("ModelCovoiturage.php");
 
         public static function findPassagers($id){
 		    $pdo = ModelCovoiturage::$pdo;
-		    $res = $pdo->query("SELECT u.login,nom,prenom 
+		    $res = $pdo->query("SELECT * 
                 FROM utilisateur u
                 JOIN passager p ON p.utilisateur_login = u.login
                 WHERE id_trajet = $id"
             );
 		    $res->setFetchMode(PDO::FETCH_CLASS,"Utilisateur");
 		    return $res->fetchAll();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public static function deletePassager($data){
+		    $pdo = ModelCovoiturage::$pdo;
+		    $res_prep = $pdo->prepare("DELETE
+		        FROM passager
+		        WHERE id_trajet = :id_traj AND utilisateur_login = :util_log"
+            );
+		    $values = array('id_traj' => $data['id_trajet'],
+                'util_log' => $data['utilisateur_login']
+            );
+		    $res_prep->execute($values);
         }
 	}
  ?>
