@@ -10,6 +10,7 @@ require_once("ModelCovoiturage.php");
 		private $prix;
 		private $conducteur_login;
 
+
 		public function __construct($data = null){
 		    if(!is_null($data)) {
                 foreach ($data as $key => $value) {
@@ -48,29 +49,31 @@ require_once("ModelCovoiturage.php");
 		    return $res->fetchAll();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         public static function deletePassager($data){
 		    $pdo = ModelCovoiturage::$pdo;
-		    $res_prep = $pdo->prepare("DELETE
-		        FROM passager
+		    $res_prep = $pdo->prepare("DELETE FROM passager
 		        WHERE id_trajet = :id_traj AND utilisateur_login = :util_log"
             );
 		    $values = array('id_traj' => $data['id_trajet'],
                 'util_log' => $data['utilisateur_login']
             );
 		    $res_prep->execute($values);
+        }
+
+        public static function getListUtilisateursTrajet($id){
+		    $pdo = ModelCovoiturage::$pdo;
+		    $resLogin = $pdo->prepare("SELECT conducteur_login FROM trajet WHERE id = :id");
+		    $resConducteur = $pdo->prepare("SELECT u.* FROM utilisateur u WHERE login = :login");
+		    $values = array('id' => $id);
+		    $resLogin->execute($values);
+		    $tab_utilisateurs = self::findPassagers($id);
+            $resConducteur->setFetchMode(PDO::FETCH_CLASS,"Utilisateur");
+            $fetch = $resLogin->fetchAll();
+            $values = array('login' => $fetch[0][0]);
+            $resConducteur->execute($values);
+            $tab_utilisateurs[] = $resConducteur->fetchAll()[0];
+
+		    return $tab_utilisateurs;
         }
 	}
  ?>

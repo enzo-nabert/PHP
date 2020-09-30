@@ -49,5 +49,19 @@ require_once("ModelCovoiturage.php");
             return $res->fetchAll();
 
         }
+
+        public static function getListeTrajet($login){
+		    $pdo = ModelCovoiturage::$pdo;
+		    $res = $pdo->prepare("SELECT t.* FROM trajet t WHERE conducteur_login = :login");
+		    $values = array('login' => $login);
+		    $res->execute($values);
+            $res->setFetchMode(PDO::FETCH_CLASS,"Trajet");
+		    $tab_trajet = self::findTrajets($login);
+		    $fetch = $res->fetchAll();
+		    foreach ($fetch as $obj){
+                $tab_trajet[] = $obj;
+            }
+		    return $tab_trajet;
+        }
 	} 
  ?>
